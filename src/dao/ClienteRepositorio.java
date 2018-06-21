@@ -23,7 +23,7 @@ import models.IModelo;
  * @author Bond
  */
 public class ClienteRepositorio implements IRepositorio {
-    
+
     private Cliente cliente;
     private Connection connection;
 
@@ -31,7 +31,10 @@ public class ClienteRepositorio implements IRepositorio {
         this.cliente = (Cliente) cliente;
         this.connection = connection;
     }
-    
+
+    public ClienteRepositorio(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public List<IModelo> obterTodos() {
@@ -39,19 +42,47 @@ public class ClienteRepositorio implements IRepositorio {
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
+
             ArrayList<IModelo> clientes = new ArrayList<>();
-            while(rs.next()) {
-                Cliente c = 
-                    new Cliente(
-                        rs.getInt("id"),
-                        rs.getString("nome"), 
-                        rs.getString("telefone")
-                    );
-                
+            while (rs.next()) {
+                Cliente c
+                        = new Cliente(
+                                rs.getInt("id"),
+                                rs.getString("nome"),
+                                rs.getString("telefone")
+                        );
+
                 clientes.add(c);
-            }       
-            
+            }
+
+            return clientes;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar todos os clientes");
+            return null;
+        }
+    }
+
+    public List<IModelo> obterTodos(String nome) {
+
+        String sql = "SELECT * FROM clientes WHERE nome like ?";
+
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+
+            stmt.setString(1, "%" + nome + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<IModelo> clientes = new ArrayList<>();
+            while (rs.next()) {
+                Cliente c
+                        = new Cliente(
+                                rs.getInt("id"),
+                                rs.getString("nome"),
+                                rs.getString("telefone")
+                        );
+                clientes.add(c);
+            }
+
             return clientes;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível buscar todos os clientes");
@@ -63,18 +94,19 @@ public class ClienteRepositorio implements IRepositorio {
     public IModelo acharPorId(int id) {
         String sql = "SELECT * FROM clientes WHERE id = ?";
         try {
-             PreparedStatement stmt = this.connection.prepareStatement(sql);
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
-            
-            ArrayList<IModelo> clientes = new ArrayList<>();
-                Cliente c = 
-                    new Cliente(
+            Cliente c = null;
+            while (rs.next()) {
+                c = new Cliente(
                         rs.getInt("id"),
-                        rs.getString("nome"), 
+                        rs.getString("nome"),
                         rs.getString("telefone")
-                    );    
-                return c;
+                );
+
+            }
+            return c;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível buscar o respectivo cliente");
             return null;
@@ -84,27 +116,28 @@ public class ClienteRepositorio implements IRepositorio {
     @Override
     public void save(IModelo model) {
         try {
-        String sql = "INSERT INTO clientes (nome,telefone) VALUES (?,?)";
-        PreparedStatement stmt = this.connection.prepareStatement(sql);
-        Cliente c = (Cliente) model;
-        stmt.setString(1, c.getNome());
-        stmt.setString(2, c.getTelefone());
-        stmt.execute();
+            String sql = "INSERT INTO clientes (nome,telefone) VALUES (?,?)";
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+            Cliente c = (Cliente) model;
+            stmt.setString(1, c.getNome());
+            stmt.setString(2, c.getTelefone());
+            stmt.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível salvar o respectivo cliente");
+            System.out.println(ex.getMessage());
         }
     }
 
     @Override
     public void editar(int id, IModelo model) {
-       String sql = "UPDATE clientes SET nome=?,telefone=? WHERE id=?";
-       Cliente c = (Cliente) model;
-       try {
+        String sql = "UPDATE clientes SET nome=?,telefone=? WHERE id=?";
+        Cliente c = (Cliente) model;
+        try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setString(1, c.getNome());
             stmt.setString(2, c.getTelefone());
             stmt.setInt(3, id);
-            
+
             stmt.execute();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível atualizar o respectivo cliente");
@@ -114,7 +147,7 @@ public class ClienteRepositorio implements IRepositorio {
     @Override
     public void remover(int id) {
         String sql = "DELETE FROM clientes WHERE id = ?";
-        
+
         try {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -123,5 +156,5 @@ public class ClienteRepositorio implements IRepositorio {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir o respectivo cliente");
         }
     }
-    
+
 }

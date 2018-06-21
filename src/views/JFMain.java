@@ -7,7 +7,12 @@ package views;
 
 import controllers.Controlador;
 import controllers.IControlador;
+import dao.Conexao;
 import dao.FuncionarioRepositorio;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Funcionario;
 import models.IModelo;
 import observers.Observer;
@@ -73,7 +78,7 @@ public class JFMain extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.controlador.salvar(new Funcionario());
+        this.controlador.salvar(new Funcionario(1,"arthur@gmail.com","Arthur","03342790202"));        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -107,8 +112,14 @@ public class JFMain extends javax.swing.JFrame implements Observer{
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 
-                new JFMain(
-                    new Controlador(new FuncionarioRepositorio())
+                Connection conn = null;
+                try {
+                    conn = Conexao.get();
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFMain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                new JFMain(                        
+                        new Controlador(new FuncionarioRepositorio(conn))
                 ).setVisible(true);
             }
         });
