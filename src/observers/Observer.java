@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package util;
+package observers;
 
 import models.IModelo;
 
@@ -11,11 +11,8 @@ import models.IModelo;
  *
  * @author ecles
  */
-public interface Subject {
-    void addObserver(Observer o);
-    void removerObserver(Observer o);
-    
-    void alert();
-    void alert(String message);
-    void alert(IModelo model);
+public interface Observer {
+    void update();
+    void update(String message);
+    void update(IModelo modelo);
 }

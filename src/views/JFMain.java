@@ -10,8 +10,8 @@ import controllers.IControlador;
 import dao.FuncionarioRepositorio;
 import models.Funcionario;
 import models.IModelo;
-import util.Observer;
-import util.Subject;
+import observers.Observer;
+import observers.Subject;
 
 /**
  *
@@ -19,24 +19,11 @@ import util.Subject;
  */
 public class JFMain extends javax.swing.JFrame implements Observer{
 
-    private IControlador<Funcionario> controlador;
-        
-    public JFMain(Subject subject) {
-        initComponents(); 
-        
-        subject.addObserver(this);
-    }
+    private IControlador controlador;
     
-    public JFMain(IControlador<Funcionario> controlador) {
+    public JFMain(IControlador controlador) {
         initComponents();
-        
-        this.controlador = controlador;
-    }
-    
-    public JFMain(IControlador<Funcionario> controlador, Subject subject) {
-        initComponents(); 
-        
-        subject.addObserver(this);
+        controlador.addObserver(this);
         this.controlador = controlador;
     }
     
@@ -119,10 +106,10 @@ public class JFMain extends javax.swing.JFrame implements Observer{
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FuncionarioRepositorio fr = new FuncionarioRepositorio();
-                Controlador c = new Controlador(fr);
                 
-                new JFMain(c, fr).setVisible(true);
+                new JFMain(
+                    new Controlador(new FuncionarioRepositorio())
+                ).setVisible(true);
             }
         });
     }

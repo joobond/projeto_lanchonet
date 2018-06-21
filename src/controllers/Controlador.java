@@ -6,12 +6,15 @@
 package controllers;
 
 import dao.IRepositorio;
+import models.Funcionario;
+import models.IModelo;
+import observers.Observer;
 
 /**
  *
  * @author ecles
  */
-public class Controlador<IModelo> implements IControlador<IModelo>{
+public class Controlador extends ControladorObservado{
     
     private IRepositorio repositorio;
     
@@ -21,12 +24,13 @@ public class Controlador<IModelo> implements IControlador<IModelo>{
 
     @Override
     public void salvar(IModelo model) {
-        this.repositorio.save();
+        this.repositorio.save(model);
     }
 
     @Override
     public void buscar(int key) {
-        
+        Funcionario funcionario = (Funcionario) this.repositorio.acharPorId(key);
+        //this.alert(funcionario);
     }
 
     @Override
@@ -38,5 +42,4 @@ public class Controlador<IModelo> implements IControlador<IModelo>{
     public void excluir(int key) {
         
     }
-    
 }

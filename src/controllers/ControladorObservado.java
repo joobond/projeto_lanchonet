@@ -3,33 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 import models.IModelo;
-import util.Subject;
-import util.Observer;
+import observers.Subject;
+import observers.Observer;
 
 /**
  *
  * @author ecles
  */
-public abstract class RepositorioObservado implements Subject{
+public abstract class ControladorObservado implements IControlador{
 
     public List<Observer> observers;
             
-    public RepositorioObservado() {
+    public ControladorObservado() {
         this.observers = new ArrayList<>();
     }   
 
     @Override
-    public void addObserver(util.Observer o) {
+    public void addObserver(observers.Observer o) {
         this.observers.add((Observer) o);
     }
 
     @Override
-    public void removerObserver(util.Observer o) {
+    public void removerObserver(observers.Observer o) {
         this.observers.remove((Observer) o);
     }
 

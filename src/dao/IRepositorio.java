@@ -15,7 +15,7 @@ import models.IModelo;
 public interface IRepositorio {
     List<IModelo> obterTodos();
     IModelo acharPorId(int id);
-    void save();
+    void save(IModelo modelo);
     void editar(int id, IModelo model);
     void remover(int id);
 }

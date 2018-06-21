@@ -5,11 +5,14 @@
  */
 package controllers;
 
+import models.IModelo;
+import observers.Subject;
+
 /**
  *
  * @author ecles
  */
-public interface IControlador<IModelo> {
+public interface IControlador extends Subject{
     void salvar(IModelo model);
     void buscar(int key);
     void editar(int key, IModelo model);
