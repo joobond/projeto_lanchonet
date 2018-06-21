@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Conexao {
     private static Connection con;
-    private static String URL = "jdbc:mysql://localhost:3306/db";
+    private static String URL = "jdbc:mysql://localhost:3306/lanchoneteste";
     private static String USER = "root";
     private static String PASS = "";
     

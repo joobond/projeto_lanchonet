@@ -29,6 +29,10 @@ public class FuncionarioRepositorio implements IRepositorio {
     
     public FuncionarioRepositorio() {}
 
+    public FuncionarioRepositorio(Connection connection) {
+        this.connection = connection;
+    }    
+    
     public FuncionarioRepositorio(IModelo m, Connection con) {
         this.funcionario = (Funcionario) m;
         this.connection = con;
