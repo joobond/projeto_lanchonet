@@ -62,6 +62,34 @@ public class ClienteRepositorio implements IRepositorio {
         }
     }
 
+    public List<IModelo> obterTodos(String nome) {
+
+        String sql = "SELECT * FROM clientes WHERE nome like ?";
+
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(sql);
+
+            stmt.setString(1, "%" + nome + "%");
+            ResultSet rs = stmt.executeQuery();
+
+            ArrayList<IModelo> clientes = new ArrayList<>();
+            while (rs.next()) {
+                Cliente c
+                        = new Cliente(
+                                rs.getInt("id"),
+                                rs.getString("nome"),
+                                rs.getString("telefone")
+                        );
+                clientes.add(c);
+            }
+
+            return clientes;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível buscar todos os clientes");
+            return null;
+        }
+    }
+
     @Override
     public IModelo acharPorId(int id) {
         String sql = "SELECT * FROM clientes WHERE id = ?";
@@ -69,14 +97,15 @@ public class ClienteRepositorio implements IRepositorio {
             PreparedStatement stmt = this.connection.prepareStatement(sql);
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
+            Cliente c = null;
+            while (rs.next()) {
+                c = new Cliente(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("telefone")
+                );
 
-            ArrayList<IModelo> clientes = new ArrayList<>();
-            Cliente c
-                    = new Cliente(
-                            rs.getInt("id"),
-                            rs.getString("nome"),
-                            rs.getString("telefone")
-                    );
+            }
             return c;
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Não foi possível buscar o respectivo cliente");
