@@ -19,7 +19,7 @@ import models.Produto;
  *
  * @author 03342797207
  */
-public class ProdutoRepositorio implements IRepositorio {
+public class ProdutoRepositorio extends Repositorio {
 
     private Produto produto;
     private Connection connection;

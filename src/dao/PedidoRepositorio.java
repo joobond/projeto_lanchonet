@@ -21,7 +21,7 @@ import models.Pedido;
  *
  * @author Bond
  */
-public class PedidoRepositorio implements IRepositorio {
+public class PedidoRepositorio extends Repositorio {
     private Pedido pedido;
     private IRepositorio repositorio_funcionario;
     private IRepositorio repositorio_cliente;

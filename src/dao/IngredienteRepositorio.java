@@ -19,7 +19,7 @@ import models.Ingrediente;
  *
  * @author Bond
  */
-public class IngredienteRepositorio implements IRepositorio {
+public class IngredienteRepositorio extends Repositorio{
     private Ingrediente ingrediente;
     private Connection connection;
     

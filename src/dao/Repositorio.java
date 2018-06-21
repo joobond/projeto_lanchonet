@@ -6,18 +6,16 @@
 package dao;
 
 import java.sql.Connection;
-import java.util.List;
 import models.IModelo;
 
 /**
  *
  * @author ecles
  */
-public interface IRepositorio {
-    List<IModelo> obterTodos();
-    IModelo acharPorId(int id);
-    void save(IModelo modelo);
-    void editar(int id, IModelo model);
-    void remover(int id);
-    void setConnection(Connection con);
+public abstract class Repositorio implements IRepositorio{
+    public Connection connection;
+    
+    public void setConnection(Connection con) {
+        this.connection = con;
+    }
 }

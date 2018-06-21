@@ -22,7 +22,7 @@ import models.IModelo;
  *
  * @author Bond
  */
-public class ClienteRepositorio implements IRepositorio {
+public class ClienteRepositorio extends Repositorio{
     
     private Cliente cliente;
     private Connection connection;

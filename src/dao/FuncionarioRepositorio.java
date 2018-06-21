@@ -22,15 +22,11 @@ import models.IModelo;
  *
  * @author ecles
  */
-public class FuncionarioRepositorio implements IRepositorio {
-
-    private Funcionario funcionario;
-    private Connection connection;
+public class FuncionarioRepositorio extends Repositorio{
     
     public FuncionarioRepositorio() {}
 
-    public FuncionarioRepositorio(IModelo m, Connection con) {
-        this.funcionario = (Funcionario) m;
+    public FuncionarioRepositorio(Connection con) {
         this.connection = con;
     }
 
