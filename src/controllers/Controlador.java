@@ -25,6 +25,7 @@ public class Controlador extends ControladorObservado{
     @Override
     public void salvar(IModelo model) {
         this.repositorio.save(model);
+        this.alert();
     }
 
     @Override

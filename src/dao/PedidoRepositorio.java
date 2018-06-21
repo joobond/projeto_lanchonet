@@ -22,24 +22,16 @@ import models.Pedido;
  * @author Bond
  */
 public class PedidoRepositorio extends Repositorio {
-    private Pedido pedido;
+    
     private IRepositorio repositorio_funcionario;
     private IRepositorio repositorio_cliente;
-    private Connection connection;
+    
+    public PedidoRepositorio() {} 
 
-    public PedidoRepositorio(IModelo pedido, Connection connection) {
-        this.pedido = (Pedido) pedido;
-        this.connection = connection;
-    }
-
-    public PedidoRepositorio(Pedido pedido, IRepositorio repositorio_funcionario, IRepositorio repositorio_cliente, Connection connection) {
-        this.pedido = pedido;
+    public PedidoRepositorio(IRepositorio repositorio_funcionario, IRepositorio repositorio_cliente, Connection connection) {
         this.repositorio_funcionario = repositorio_funcionario;
         this.repositorio_cliente = repositorio_cliente;
-        this.connection = connection;
     }
-    
-    
     
     @Override
     public List<IModelo> obterTodos() {

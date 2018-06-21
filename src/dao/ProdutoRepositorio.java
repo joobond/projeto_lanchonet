@@ -21,14 +21,8 @@ import models.Produto;
  */
 public class ProdutoRepositorio extends Repositorio {
 
-    private Produto produto;
-    private Connection connection;
-
-    public ProdutoRepositorio(IModelo produto, Connection connection) {
-        this.produto = (Produto) produto;
-        this.connection = connection;
-    }
-
+    public ProdutoRepositorio() {}
+    
     @Override
     public List<IModelo> obterTodos() {
         String sql = "SELECT * FROM produtos";

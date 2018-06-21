@@ -26,10 +26,6 @@ public class FuncionarioRepositorio extends Repositorio{
     
     public FuncionarioRepositorio() {}
 
-    public FuncionarioRepositorio(Connection con) {
-        this.connection = con;
-    }
-
     @Override
     public List<IModelo> obterTodos() {
         String sql = "SELECT * FROM funcionarios";

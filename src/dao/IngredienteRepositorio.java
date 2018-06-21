@@ -20,8 +20,8 @@ import models.Ingrediente;
  * @author Bond
  */
 public class IngredienteRepositorio extends Repositorio{
-    private Ingrediente ingrediente;
-    private Connection connection;
+    
+    public IngredienteRepositorio() {}
     
     @Override
     public List<IModelo> obterTodos() {
