@@ -40,7 +40,8 @@ public class FuncionarioRepositorio extends Repositorio{
                                 rs.getInt("id"),
                                 rs.getString("name"),
                                 rs.getString("email"),
-                                rs.getString("cpf")
+                                rs.getString("cpf"),
+                                rs.getString("senha")
                         );
 
                 funcionarios.add(f);
@@ -67,7 +68,8 @@ public class FuncionarioRepositorio extends Repositorio{
                             rs.getInt("id"),
                             rs.getString("name"),
                             rs.getString("email"),
-                            rs.getString("cpf")
+                            rs.getString("cpf"),
+                            rs.getString("senha")
                     );
             return f;
         } catch (SQLException ex) {

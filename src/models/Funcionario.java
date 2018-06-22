@@ -15,15 +15,17 @@ public class Funcionario implements IModelo {
     private String email;
     private String name;
     private String cpf;
+    private String senha;
 
     public Funcionario() {
     }
 
-    public Funcionario(int id, String email, String name, String cpf) {
+    public Funcionario(int id, String email, String name, String cpf, String senha) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.cpf = cpf;
+        this.senha = senha;
     }
 
     public int getId() {
@@ -56,6 +58,14 @@ public class Funcionario implements IModelo {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
     
     
